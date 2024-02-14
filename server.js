@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Route to get all notes from db.json
 app.get('/api/notes', (req, res) => {
-  fs.readFile(path.join(__dirname, 'db.json'), 'utf8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -25,7 +25,7 @@ app.get('/api/notes', (req, res) => {
 
 // Route to save a new note to db.json
 app.post('/api/notes', (req, res) => {
-  fs.readFile(path.join(__dirname, 'db.json'), 'utf8', (err, data) => {
+  fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });
@@ -35,7 +35,7 @@ app.post('/api/notes', (req, res) => {
     const newNote = req.body;
     newNote.id = Date.now().toString(); // Generate a unique ID
     notes.push(newNote);
-    fs.writeFile(path.join(__dirname, 'db.json'), JSON.stringify(notes), (err) => {
+    fs.writeFile(path.join(__dirname, 'db', 'db.json'), JSON.stringify(notes), (err) => {
       if (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal Server Error' });
